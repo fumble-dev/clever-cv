@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { dummyResumeData } from '../assets/assets.js'
 import { ArrowLeftIcon, Briefcase, ChevronLeft, ChevronRight, FileText, Folder, GraduationCap, Sparkles, User } from 'lucide-react'
+import PersonalInfoForm from '../components/PersonalInfoForm.jsx'
 
 const ResumeBuilder = () => {
 
@@ -29,7 +30,7 @@ const ResumeBuilder = () => {
     }
   }
 
-  const [activeSectionIndex, setActiveSectionIndex] = useState(3);
+  const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const [removeBackground, setRemoveBackground] = useState(false)
 
 
@@ -76,7 +77,7 @@ const ResumeBuilder = () => {
                       </button>
                     )
                   }
-                  <button onClick={() => setActiveSectionIndex((prevIndex) => Math.min(sections.length - 1, prevIndex + 1))} className={`fkex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all ${activeSectionIndex === sections.length - 1 && 'opacity-50'}`} disabled={activeSectionIndex === sections.length - 1}>
+                  <button onClick={() => setActiveSectionIndex((prevIndex) => Math.min(sections.length - 1, prevIndex + 1))} className={`flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all ${activeSectionIndex === sections.length - 1 && 'opacity-50'}`} disabled={activeSectionIndex === sections.length - 1}>
                     <ChevronRight className='size-4' /> Next
                   </button>
                 </div>
@@ -84,11 +85,11 @@ const ResumeBuilder = () => {
               </div>
 
               <div className='space-y-6'>
-                  {
-                    activeSection.id == 'personal' &&(
-                      <div></div>
-                    )
-                  }
+                {
+                  activeSection.id == 'personal' && (
+                    <PersonalInfoForm data={resumeData.personal_info} onChange={(data) => setResumeData(prev => ({ ...prev, personal_info: data }))} removeBackground={removeBackground} setRemoveBackground={setRemoveBackground} />
+                  )
+                }
               </div>
             </div>
           </div>
